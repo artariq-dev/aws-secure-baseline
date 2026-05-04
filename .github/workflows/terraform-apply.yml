@@ -1,0 +1,95 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'accounts/**'
+      - 'global/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      non_prod_envs: ${{ steps.changes.outputs.non_prod_envs }}
+      prod_envs: ${{ steps.changes.outputs.prod_envs }}
+      has_non_prod: ${{ steps.changes.outputs.has_non_prod }}
+      has_prod: ${{ steps.changes.outputs.has_prod }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect changed environments
+        id: changes
+        run: |
+          CHANGED=$(git diff --name-only HEAD~1...HEAD | grep -E '^(accounts|global)/')
+
+          NON_PROD=$(echo "$CHANGED" | grep "non-prod" \
+            | awk -F'/' '{print $1"/"$2"/"$3}' | sort -u \
+            | jq -R -s -c 'split("\n") | map(select(length > 0))')
+
+          PROD=$(echo "$CHANGED" | grep -E "^accounts/prod|^global" \
+            | awk -F'/' '{print $1"/"$2"/"$3}' | sort -u \
+            | jq -R -s -c 'split("\n") | map(select(length > 0))')
+
+          echo "non_prod_envs=$NON_PROD" >> $GITHUB_OUTPUT
+          echo "prod_envs=$PROD" >> $GITHUB_OUTPUT
+          echo "has_non_prod=$([ "$NON_PROD" != "[]" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "has_prod=$([ "$PROD" != "[]" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+
+  apply-non-prod:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_non_prod == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        path: ${{ fromJson(needs.detect-changes.outputs.non_prod_envs) }}
+      max-parallel: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.8.0"
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.NON_PROD_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ${{ matrix.path }}
+      - name: Terraform Apply
+        run: terraform apply -var-file=terraform.tfvars -auto-approve
+        working-directory: ${{ matrix.path }}
+
+  apply-prod:
+    needs: [detect-changes, apply-non-prod]
+    if: |
+      always() &&
+      needs.detect-changes.outputs.has_prod == 'true' &&
+      (needs.apply-non-prod.result == 'success' || needs.apply-non-prod.result == 'skipped')
+    runs-on: ubuntu-latest
+    environment: prod
+    strategy:
+      matrix:
+        path: ${{ fromJson(needs.detect-changes.outputs.prod_envs) }}
+      max-parallel: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.8.0"
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.PROD_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Terraform Init
+        run: terraform init
+        working-directory: ${{ matrix.path }}
+      - name: Terraform Apply
+        run: terraform apply -var-file=terraform.tfvars -auto-approve
+        working-directory: ${{ matrix.path }}

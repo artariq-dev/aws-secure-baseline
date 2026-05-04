@@ -1,0 +1,5 @@
+project     = "myapp"
+owner       = "platform-team"
+cost_center = "engineering"
+github_org  = "YOUR_GITHUB_ORG"
+github_repo = "terraform-aws"
