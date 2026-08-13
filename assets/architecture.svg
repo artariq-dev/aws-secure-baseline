@@ -1,0 +1,242 @@
+<svg viewBox="0 0 1100 820" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="ab" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/></marker>
+    <marker id="ag" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#10b981"/></marker>
+    <marker id="ap" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#8b5cf6"/></marker>
+    <marker id="ao" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#f97316"/></marker>
+    <marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ef4444"/></marker>
+    <marker id="ay" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#eab308"/></marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1100" height="820" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="550" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">AWS Secure Baseline — Multi-Account Security Platform</text>
+  <text x="550" y="54" text-anchor="middle" font-size="12" fill="#64748b">GuardDuty · Security Hub · CloudTrail · AWS Config · SCPs · Terraform · GitHub Actions</text>
+
+  <!-- LEGEND -->
+  <rect x="20" y="68" width="12" height="12" rx="2" fill="#f97316"/><text x="36" y="79" font-size="11" fill="#475569">AWS Org / SCPs</text>
+  <rect x="155" y="68" width="12" height="12" rx="2" fill="#3b82f6"/><text x="171" y="79" font-size="11" fill="#475569">CI/CD</text>
+  <rect x="220" y="68" width="12" height="12" rx="2" fill="#ef4444"/><text x="236" y="79" font-size="11" fill="#475569">Security Services</text>
+  <rect x="360" y="68" width="12" height="12" rx="2" fill="#10b981"/><text x="376" y="79" font-size="11" fill="#475569">Alerting</text>
+  <rect x="440" y="68" width="12" height="12" rx="2" fill="#8b5cf6"/><text x="456" y="79" font-size="11" fill="#475569">Accounts / Environments</text>
+  <rect x="630" y="68" width="12" height="12" rx="2" fill="#eab308"/><text x="646" y="79" font-size="11" fill="#475569">State / Bootstrap</text>
+
+  <!-- ══ ROW 1: AWS Organizations + SCPs ══ -->
+  <rect x="30" y="92" width="1050" height="90" rx="12" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <text x="555" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#9a3412">AWS Organizations — SCP Layer (enforced above IAM, cannot be overridden)</text>
+
+  <rect x="48" y="122" width="155" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="1.5"/>
+  <text x="125" y="141" text-anchor="middle" font-size="9" font-weight="bold" fill="#9a3412">Deny Leave Org</text>
+  <text x="125" y="155" text-anchor="middle" font-size="9" fill="#c2410c">accounts can't escape</text>
+
+  <rect x="218" y="122" width="175" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="1.5"/>
+  <text x="305" y="141" text-anchor="middle" font-size="9" font-weight="bold" fill="#9a3412">Deny Disable Security Svcs</text>
+  <text x="305" y="155" text-anchor="middle" font-size="9" fill="#c2410c">GuardDuty · CloudTrail · Config · SecHub</text>
+
+  <rect x="408" y="122" width="155" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="1.5"/>
+  <text x="485" y="141" text-anchor="middle" font-size="9" font-weight="bold" fill="#9a3412">Deny Root Usage</text>
+  <text x="485" y="155" text-anchor="middle" font-size="9" fill="#c2410c">root account blocked always</text>
+
+  <rect x="578" y="122" width="155" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="1.5"/>
+  <text x="655" y="141" text-anchor="middle" font-size="9" font-weight="bold" fill="#9a3412">Approved Regions Only</text>
+  <text x="655" y="155" text-anchor="middle" font-size="9" fill="#c2410c">data residency enforced</text>
+
+  <rect x="748" y="122" width="155" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="1.5"/>
+  <text x="825" y="141" text-anchor="middle" font-size="9" font-weight="bold" fill="#9a3412">Deny Public S3</text>
+  <text x="825" y="155" text-anchor="middle" font-size="9" fill="#c2410c">ACLs + block public access</text>
+
+  <rect x="918" y="122" width="145" height="50" rx="8" fill="#fed7aa" stroke="#f97316" stroke-width="1.5"/>
+  <text x="990" y="141" text-anchor="middle" font-size="9" font-weight="bold" fill="#9a3412">Require IMDSv2</text>
+  <text x="990" y="155" text-anchor="middle" font-size="9" fill="#c2410c">blocks EC2 SSRF attacks</text>
+
+  <!-- ══ ROW 2: CI/CD + Bootstrap ══ -->
+  <!-- Bootstrap -->
+  <rect x="30" y="202" width="220" height="110" rx="10" fill="#fefce8" stroke="#eab308" stroke-width="1.5"/>
+  <text x="140" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#713f12">Bootstrap (run once)</text>
+  <text x="140" y="236" text-anchor="middle" font-size="9" fill="#854d0e">S3 state bucket</text>
+  <text x="140" y="250" text-anchor="middle" font-size="9" fill="#854d0e">DynamoDB lock table</text>
+  <text x="140" y="264" text-anchor="middle" font-size="9" fill="#854d0e">Solves chicken-and-egg</text>
+  <text x="140" y="278" text-anchor="middle" font-size="9" fill="#854d0e">state before state exists</text>
+  <text x="140" y="294" text-anchor="middle" font-size="9" fill="#854d0e">versioned · per-env isolated</text>
+
+  <!-- GitHub Actions CI/CD -->
+  <rect x="270" y="202" width="810" height="110" rx="10" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="675" y="220" text-anchor="middle" font-size="11" font-weight="bold" fill="#1d4ed8">GitHub Actions CI/CD — OIDC (no stored credentials)</text>
+
+  <rect x="285" y="230" width="175" height="72" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+  <text x="372" y="247" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e40af">PR — terraform plan</text>
+  <text x="372" y="261" text-anchor="middle" font-size="9" fill="#3b82f6">changed envs only</text>
+  <text x="372" y="275" text-anchor="middle" font-size="9" fill="#3b82f6">structured change summary</text>
+  <text x="372" y="289" text-anchor="middle" font-size="9" fill="#3b82f6">tfsec + checkov scan</text>
+
+  <line x1="460" y1="266" x2="478" y2="266" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <rect x="478" y="230" width="175" height="72" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1"/>
+  <text x="565" y="247" text-anchor="middle" font-size="9" font-weight="bold" fill="#1e40af">Merge → apply</text>
+  <text x="565" y="261" text-anchor="middle" font-size="9" fill="#3b82f6">non-prod: auto-apply</text>
+  <text x="565" y="275" text-anchor="middle" font-size="9" fill="#3b82f6">prod: manual approval gate</text>
+  <text x="565" y="289" text-anchor="middle" font-size="9" fill="#3b82f6">GitHub Environment: prod</text>
+
+  <line x1="653" y1="266" x2="671" y2="266" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <rect x="671" y="230" width="175" height="72" rx="7" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+  <text x="758" y="247" text-anchor="middle" font-size="9" font-weight="bold" fill="#991b1b">Security Scan (every PR)</text>
+  <text x="758" y="261" text-anchor="middle" font-size="9" fill="#dc2626">tfsec — Terraform rules</text>
+  <text x="758" y="275" text-anchor="middle" font-size="9" fill="#dc2626">checkov — policy-as-code</text>
+  <text x="758" y="289" text-anchor="middle" font-size="9" fill="#dc2626">blocks HIGH/CRITICAL</text>
+
+  <line x1="846" y1="266" x2="864" y2="266" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ab)"/>
+
+  <rect x="864" y="230" width="200" height="72" rx="7" fill="#dcfce7" stroke="#10b981" stroke-width="1"/>
+  <text x="964" y="247" text-anchor="middle" font-size="9" font-weight="bold" fill="#065f46">OIDC Auth to AWS</text>
+  <text x="964" y="261" text-anchor="middle" font-size="9" fill="#059669">non-prod role: any workflow</text>
+  <text x="964" y="275" text-anchor="middle" font-size="9" fill="#059669">prod role: prod env only</text>
+  <text x="964" y="289" text-anchor="middle" font-size="9" fill="#059669">short-lived tokens · no keys</text>
+
+  <!-- ══ ROW 3: Multi-Account Topology ══ -->
+  <rect x="30" y="332" width="1050" height="145" rx="12" fill="#f5f3ff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="555" y="352" text-anchor="middle" font-size="13" font-weight="bold" fill="#4c1d95">Multi-Account Topology — Blast Radius Isolated by Design</text>
+
+  <!-- Non-Prod Account -->
+  <rect x="50" y="362" width="480" height="100" rx="10" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="290" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="#5b21b6">Non-Prod Account</text>
+  <text x="290" y="394" text-anchor="middle" font-size="9" fill="#6d28d9">Separate AWS account · OIDC role: github-actions-non-prod</text>
+
+  <rect x="65" y="402" width="210" height="50" rx="7" fill="#ddd6fe" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="170" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#4c1d95">dev</text>
+  <text x="170" y="434" text-anchor="middle" font-size="9" fill="#5b21b6">VPC 10.10.0.0/16 · EKS · RDS · Redis</text>
+  <text x="170" y="447" text-anchor="middle" font-size="9" fill="#5b21b6">single-AZ · cost-optimised</text>
+
+  <rect x="295" y="402" width="220" height="50" rx="7" fill="#ddd6fe" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="405" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#4c1d95">sit</text>
+  <text x="405" y="434" text-anchor="middle" font-size="9" fill="#5b21b6">VPC 10.20.0.0/16 · EKS · RDS · Redis</text>
+  <text x="405" y="447" text-anchor="middle" font-size="9" fill="#5b21b6">system integration testing</text>
+
+  <!-- Prod Account -->
+  <rect x="550" y="362" width="510" height="100" rx="10" fill="#fce7f3" stroke="#db2777" stroke-width="1.5"/>
+  <text x="805" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="#9d174d">Prod Account</text>
+  <text x="805" y="394" text-anchor="middle" font-size="9" fill="#be185d">Separate AWS account · OIDC role: github-actions-prod (approval required)</text>
+
+  <rect x="565" y="402" width="220" height="50" rx="7" fill="#fbcfe8" stroke="#db2777" stroke-width="1"/>
+  <text x="675" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#9d174d">staging</text>
+  <text x="675" y="434" text-anchor="middle" font-size="9" fill="#be185d">VPC 10.30.0.0/16 · EKS · RDS Multi-AZ</text>
+  <text x="675" y="447" text-anchor="middle" font-size="9" fill="#be185d">deletion protection on</text>
+
+  <rect x="805" y="402" width="240" height="50" rx="7" fill="#fbcfe8" stroke="#db2777" stroke-width="1"/>
+  <text x="925" y="420" text-anchor="middle" font-size="10" font-weight="bold" fill="#9d174d">prod</text>
+  <text x="925" y="434" text-anchor="middle" font-size="9" fill="#be185d">VPC 10.40.0.0/16 · EKS · RDS Multi-AZ</text>
+  <text x="925" y="447" text-anchor="middle" font-size="9" fill="#be185d">CloudFront + WAF · Route53</text>
+
+  <!-- ══ ROW 4: Security Modules ══ -->
+  <rect x="30" y="497" width="1050" height="175" rx="12" fill="#fff1f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="555" y="517" text-anchor="middle" font-size="13" font-weight="bold" fill="#991b1b">Security Modules — Deployed Identically Across Every Environment</text>
+
+  <!-- CloudTrail -->
+  <rect x="48" y="527" width="190" height="130" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="143" y="545" text-anchor="middle" font-size="10" font-weight="bold" fill="#991b1b">CloudTrail</text>
+  <line x1="58" y1="552" x2="228" y2="552" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="143" y="566" text-anchor="middle" font-size="9" fill="#dc2626">Multi-region trail</text>
+  <text x="143" y="580" text-anchor="middle" font-size="9" fill="#dc2626">S3 + Lambda data events</text>
+  <text x="143" y="594" text-anchor="middle" font-size="9" fill="#dc2626">CloudTrail Insights</text>
+  <text x="143" y="608" text-anchor="middle" font-size="9" fill="#dc2626">Log file validation (SHA-256)</text>
+  <text x="143" y="622" text-anchor="middle" font-size="9" fill="#dc2626">9 CIS CloudWatch alarms</text>
+  <text x="143" y="636" text-anchor="middle" font-size="9" fill="#dc2626">7-yr S3 lifecycle · KMS</text>
+  <text x="143" y="650" text-anchor="middle" font-size="9" fill="#dc2626">root usage · IAM · SG alerts</text>
+
+  <!-- GuardDuty -->
+  <rect x="252" y="527" width="190" height="130" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="347" y="545" text-anchor="middle" font-size="10" font-weight="bold" fill="#991b1b">GuardDuty</text>
+  <line x1="262" y1="552" x2="432" y2="552" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="347" y="566" text-anchor="middle" font-size="9" fill="#dc2626">S3 Protection</text>
+  <text x="347" y="580" text-anchor="middle" font-size="9" fill="#dc2626">Kubernetes Protection</text>
+  <text x="347" y="594" text-anchor="middle" font-size="9" fill="#dc2626">Malware Protection (EBS)</text>
+  <text x="347" y="608" text-anchor="middle" font-size="9" fill="#dc2626">Findings → S3 export</text>
+  <text x="347" y="622" text-anchor="middle" font-size="9" fill="#dc2626">Severity ≥7.0 → SNS alert</text>
+  <text x="347" y="636" text-anchor="middle" font-size="9" fill="#dc2626">KMS per-detector key</text>
+  <text x="347" y="650" text-anchor="middle" font-size="9" fill="#dc2626">Trusted IP set support</text>
+
+  <!-- Security Hub -->
+  <rect x="456" y="527" width="190" height="130" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="551" y="545" text-anchor="middle" font-size="10" font-weight="bold" fill="#991b1b">Security Hub</text>
+  <line x1="466" y1="552" x2="636" y2="552" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="551" y="566" text-anchor="middle" font-size="9" fill="#dc2626">CIS v1.4.0 (58 controls)</text>
+  <text x="551" y="580" text-anchor="middle" font-size="9" fill="#dc2626">AWS FSBP (200+ controls)</text>
+  <text x="551" y="594" text-anchor="middle" font-size="9" fill="#dc2626">PCI DSS · NIST (optional)</text>
+  <text x="551" y="608" text-anchor="middle" font-size="9" fill="#dc2626">Cross-region aggregator</text>
+  <text x="551" y="622" text-anchor="middle" font-size="9" fill="#dc2626">CRITICAL/HIGH → SNS</text>
+  <text x="551" y="636" text-anchor="middle" font-size="9" fill="#dc2626">NEW + ACTIVE only</text>
+  <text x="551" y="650" text-anchor="middle" font-size="9" fill="#dc2626">no alert fatigue</text>
+
+  <!-- AWS Config -->
+  <rect x="660" y="527" width="190" height="130" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="755" y="545" text-anchor="middle" font-size="10" font-weight="bold" fill="#991b1b">AWS Config</text>
+  <line x1="670" y1="552" x2="840" y2="552" stroke="#ef4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="755" y="566" text-anchor="middle" font-size="9" fill="#dc2626">30 managed rules</text>
+  <text x="755" y="580" text-anchor="middle" font-size="9" fill="#dc2626">Encryption · IAM · Logging</text>
+  <text x="755" y="594" text-anchor="middle" font-size="9" fill="#dc2626">Networking · Compute · RDS</text>
+  <text x="755" y="608" text-anchor="middle" font-size="9" fill="#dc2626">IMDSv2 · EBS encryption</text>
+  <text x="755" y="622" text-anchor="middle" font-size="9" fill="#dc2626">Access key rotation 90d</text>
+  <text x="755" y="636" text-anchor="middle" font-size="9" fill="#dc2626">NON_COMPLIANT → SNS</text>
+  <text x="755" y="650" text-anchor="middle" font-size="9" fill="#dc2626">7-yr history · daily snapshot</text>
+
+  <!-- Global IAM -->
+  <rect x="864" y="527" width="200" height="130" rx="8" fill="#fef3c7" stroke="#eab308" stroke-width="1.5"/>
+  <text x="964" y="545" text-anchor="middle" font-size="10" font-weight="bold" fill="#713f12">Global Resources</text>
+  <line x1="874" y1="552" x2="1054" y2="552" stroke="#eab308" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="964" y="566" text-anchor="middle" font-size="9" fill="#854d0e">IAM OIDC roles</text>
+  <text x="964" y="580" text-anchor="middle" font-size="9" fill="#854d0e">Route53 hosted zones</text>
+  <text x="964" y="594" text-anchor="middle" font-size="9" fill="#854d0e">CloudFront + WAF</text>
+  <text x="964" y="608" text-anchor="middle" font-size="9" fill="#854d0e">OWASP · IP reputation</text>
+  <text x="964" y="622" text-anchor="middle" font-size="9" fill="#854d0e">SNS alerts topic</text>
+  <text x="964" y="636" text-anchor="middle" font-size="9" fill="#854d0e">EventBridge rules</text>
+  <text x="964" y="650" text-anchor="middle" font-size="9" fill="#854d0e">KMS per-service keys</text>
+
+  <!-- ══ ROW 5: Alerting Flow ══ -->
+  <rect x="30" y="692" width="1050" height="112" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="555" y="712" text-anchor="middle" font-size="12" font-weight="bold" fill="#f1f5f9">Layered Detection — Every Layer Catches What the Others Miss</text>
+
+  <rect x="48" y="722" width="185" height="72" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="1"/>
+  <text x="140" y="740" text-anchor="middle" font-size="9" font-weight="bold" fill="#93c5fd">CloudTrail + CloudWatch</text>
+  <text x="140" y="754" text-anchor="middle" font-size="9" fill="#64748b">specific high-risk API calls</text>
+  <text x="140" y="768" text-anchor="middle" font-size="9" fill="#64748b">real-time · 5 min alert</text>
+  <text x="140" y="782" text-anchor="middle" font-size="9" fill="#3b82f6">→ SNS within minutes</text>
+
+  <rect x="248" y="722" width="185" height="72" rx="8" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+  <text x="340" y="740" text-anchor="middle" font-size="9" font-weight="bold" fill="#fca5a5">GuardDuty</text>
+  <text x="340" y="754" text-anchor="middle" font-size="9" fill="#64748b">behavioural anomalies · ML</text>
+  <text x="340" y="768" text-anchor="middle" font-size="9" fill="#64748b">Tor IPs · C2 comms · mining</text>
+  <text x="340" y="782" text-anchor="middle" font-size="9" fill="#ef4444">→ EventBridge → SNS</text>
+
+  <rect x="448" y="722" width="185" height="72" rx="8" fill="#0f172a" stroke="#f97316" stroke-width="1"/>
+  <text x="540" y="740" text-anchor="middle" font-size="9" font-weight="bold" fill="#fdba74">AWS Config</text>
+  <text x="540" y="754" text-anchor="middle" font-size="9" fill="#64748b">configuration drift</text>
+  <text x="540" y="768" text-anchor="middle" font-size="9" fill="#64748b">open SSH · unencrypted S3</text>
+  <text x="540" y="782" text-anchor="middle" font-size="9" fill="#f97316">→ EventBridge → SNS</text>
+
+  <rect x="648" y="722" width="185" height="72" rx="8" fill="#0f172a" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="740" y="740" text-anchor="middle" font-size="9" font-weight="bold" fill="#c4b5fd">Security Hub</text>
+  <text x="740" y="754" text-anchor="middle" font-size="9" fill="#64748b">compliance gaps · CIS checks</text>
+  <text x="740" y="768" text-anchor="middle" font-size="9" fill="#64748b">aggregates all sources</text>
+  <text x="740" y="782" text-anchor="middle" font-size="9" fill="#8b5cf6">→ EventBridge → SNS</text>
+
+  <rect x="848" y="722" width="215" height="72" rx="8" fill="#450a0a" stroke="#ef4444" stroke-width="1"/>
+  <text x="955" y="740" text-anchor="middle" font-size="9" font-weight="bold" fill="#fca5a5">SCPs (above all layers)</text>
+  <text x="955" y="754" text-anchor="middle" font-size="9" fill="#94a3b8">prevents disabling any layer</text>
+  <text x="955" y="768" text-anchor="middle" font-size="9" fill="#94a3b8">enforced by AWS itself</text>
+  <text x="955" y="782" text-anchor="middle" font-size="9" fill="#ef4444">no credential can override</text>
+
+  <!-- ══ ARROWS ══ -->
+  <!-- CI/CD → accounts -->
+  <line x1="555" y1="312" x2="290" y2="332" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="675" y1="312" x2="805" y2="332" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ab)"/>
+  <!-- Security modules → alerting -->
+  <line x1="143" y1="657" x2="140" y2="692" stroke="#ef4444" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="347" y1="657" x2="340" y2="692" stroke="#ef4444" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="551" y1="657" x2="540" y2="692" stroke="#ef4444" stroke-width="1.5" marker-end="url(#ar)"/>
+  <line x1="755" y1="657" x2="740" y2="692" stroke="#ef4444" stroke-width="1.5" marker-end="url(#ar)"/>
+  <!-- SCPs wrap everything -->
+  <line x1="555" y1="92" x2="955" y2="722" stroke="#f97316" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
+
+</svg>

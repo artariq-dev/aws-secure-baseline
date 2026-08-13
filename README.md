@@ -36,6 +36,16 @@ A production-grade AWS infrastructure template using pure Terraform, with Claude
               └─────────────────────┘
 ```
 
+## Architecture
+
+### Overview
+
+![Architecture Overview](assets/architecture-simple.svg)
+
+### Detailed Architecture
+
+![Detailed Architecture](assets/architecture.svg)
+
 ## Prerequisites
 
 | Tool | Version | Install |
